@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@layer base {
+  @media print {
+    body {
+      background: white !important;
+    }
+    aside, nav, button, .no-print {
+      display: none !important;
+    }
+    main {
+      margin-left: 0 !important;
+      padding: 0 !important;
+    }
+    .print-only {
+      display: block !important;
+    }
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
