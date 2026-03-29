@@ -85,6 +85,32 @@ export default function LegerPanel({ students, subjects, grades, onEditStudent }
     XLSX.writeFile(wb, fileName);
   };
 
+  const handleExportCSV = () => {
+    const header = [
+      'No', 'NISN', 'Nama Siswa', 'Kelas',
+      ...subjects.map(s => s.name),
+      'Total', 'Rata-rata', 'Ranking'
+    ];
+
+    const data = legerData.map((item, index) => [
+      index + 1,
+      item.nisn,
+      item.name,
+      item.class,
+      ...subjects.map(s => item.grades[s.id] || 0),
+      item.total,
+      item.average.toFixed(2),
+      index + 1
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([header, ...data]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Leger Nilai');
+    
+    const fileName = `Leger_Nilai_${selectedClass.replace(/ /g, '_')}_Semester_${selectedSemester.replace(/ /g, '_')}.csv`;
+    XLSX.writeFile(wb, fileName, { bookType: 'csv' });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -92,13 +118,22 @@ export default function LegerPanel({ students, subjects, grades, onEditStudent }
           <h1 className="text-2xl font-bold text-gray-900">Leger Nilai</h1>
           <p className="text-gray-500 mt-1">Rekapitulasi nilai seluruh mata pelajaran per kelas.</p>
         </div>
-        <button
-          onClick={handleExportExcel}
-          className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-100 hover:bg-emerald-700 active:scale-95 transition-all text-sm"
-        >
-          <Download size={18} />
-          <span>Export Excel</span>
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleExportCSV}
+            className="flex items-center gap-2 px-4 py-2.5 bg-gray-600 text-white font-semibold rounded-xl shadow-lg shadow-gray-100 hover:bg-gray-700 active:scale-95 transition-all text-sm"
+          >
+            <Download size={18} />
+            <span>Export CSV</span>
+          </button>
+          <button
+            onClick={handleExportExcel}
+            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-100 hover:bg-emerald-700 active:scale-95 transition-all text-sm"
+          >
+            <Download size={18} />
+            <span>Export Excel</span>
+          </button>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
