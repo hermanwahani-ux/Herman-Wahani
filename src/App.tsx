@@ -24,7 +24,7 @@ const MOCK_STUDENTS: Student[] = [
     major: 'Manajemen Perkantoran', 
     semester: '2 (Genap)', 
     academicYear: '2025/2026', 
-    school: 'SMK COKROAMINOTO SALONGO',
+    school: 'SMK KONOHA',
     address: 'Jalan TNI 3 Desa Salongo Kec. Bolaang Uki',
     phase: 'E',
     createdAt: new Date() 
@@ -71,7 +71,7 @@ const MOCK_METADATA: ReportMetadata[] = [
 ];
 
 const DEFAULT_SCHOOL_PROFILE: SchoolProfile = {
-  name: 'SMK COKROAMINOTO SALONGO',
+  name: 'SMK KONOHA',
   npsn: '69754524',
   nss: '322171001501',
   address: 'Jalan TNI 3 Desa Salongo Kec. Bolaang Uki',
