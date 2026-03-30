@@ -77,15 +77,16 @@ export default function ReportPreview({
               </button>
               <button
                 onClick={onClose}
-                className="p-2 text-gray-400 hover:text-gray-600 transition-colors ml-2"
+                className="flex items-center gap-1 p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all ml-2"
               >
-                <X size={24} />
+                <span className="text-xs font-bold uppercase tracking-wider">Tutup</span>
+                <X size={20} />
               </button>
             </div>
           </div>
 
           {/* Report Content */}
-          <div className="p-12 bg-white min-h-[1123px] font-serif text-gray-900 print:p-8">
+          <div className="p-12 bg-white min-h-[1123px] font-serif text-gray-900 print:p-8 shadow-inner border-x border-gray-100 mx-auto max-w-[210mm]">
             {/* School Header */}
             <div className="text-center space-y-2 mb-10">
               <h1 className="text-xl font-bold uppercase tracking-widest">LAPORAN HASIL BELAJAR (RAPOR)</h1>
@@ -257,6 +258,22 @@ export default function ReportPreview({
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Bottom Actions */}
+          <div className="p-6 border-t border-gray-100 bg-gray-50 flex justify-center gap-4 print:hidden">
+            <button
+              onClick={onClose}
+              className="px-8 py-3 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-all active:scale-95 shadow-sm"
+            >
+              Tutup Preview
+            </button>
+            <button
+              onClick={onDownloadPDF}
+              className="px-8 py-3 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-100 hover:bg-blue-700 transition-all active:scale-95"
+            >
+              Unduh PDF
+            </button>
           </div>
         </motion.div>
       </div>

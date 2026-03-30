@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Printer, FileText, User, School, Info, Download } from 'lucide-react';
+import { Search, Printer, FileText, User, School, Info, Download, X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Student, SchoolProfile } from '../types';
 import { cn } from '../lib/utils';
@@ -45,8 +45,16 @@ export default function ReportCoverPanel({ students, schoolProfile }: ReportCove
                 placeholder="Cari siswa..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-sm"
+                className="w-full pl-10 pr-10 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-sm"
               />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X size={16} />
+                </button>
+              )}
             </div>
             <div className="space-y-1 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
               {filteredStudents.map(student => (
@@ -114,10 +122,17 @@ export default function ReportCoverPanel({ students, schoolProfile }: ReportCove
                   <Printer size={18} />
                   <span>Cetak Halaman</span>
                 </button>
+                <button
+                  onClick={() => setSelectedStudent(null)}
+                  className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all active:scale-95"
+                  title="Tutup Preview"
+                >
+                  <X size={20} />
+                </button>
               </div>
 
-              <div className="bg-gray-200 p-8 rounded-2xl overflow-auto min-h-[800px] flex justify-center print:p-0 print:bg-white print:block">
-                <div className="bg-white w-[210mm] min-h-[297mm] p-[20mm] shadow-2xl print:shadow-none print:w-full print:p-0 print:min-h-0">
+              <div className="bg-gray-100 p-8 rounded-2xl overflow-auto min-h-[800px] flex justify-center border border-gray-200 print:p-0 print:bg-white print:block print:border-none">
+                <div className="bg-white w-[210mm] min-h-[297mm] p-[20mm] shadow-xl border border-gray-100 print:shadow-none print:w-full print:p-0 print:min-h-0 print:border-none">
                   {activePage === 'cover' && <CoverPage student={selectedStudent} schoolProfile={schoolProfile} />}
                   {activePage === 'school' && <SchoolInfoPage student={selectedStudent} schoolProfile={schoolProfile} />}
                   {activePage === 'identity' && <IdentityPage student={selectedStudent} schoolProfile={schoolProfile} />}

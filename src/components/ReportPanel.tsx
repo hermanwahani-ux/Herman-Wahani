@@ -118,6 +118,18 @@ export default function ReportPanel({
                 <option key={s} value={s}>{s === 'Semua Semester' ? s : `Semester ${s}`}</option>
               ))}
             </select>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedClass('Semua Kelas');
+                setSelectedMajor('Semua Jurusan');
+                setSelectedSemester('Semua Semester');
+              }}
+              className="px-4 py-2.5 bg-gray-100 text-gray-600 font-bold rounded-xl hover:bg-gray-200 transition-all active:scale-95 text-sm"
+              title="Reset Filter"
+            >
+              Reset
+            </button>
           </div>
         </div>
 

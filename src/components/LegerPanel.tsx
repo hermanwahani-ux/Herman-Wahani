@@ -172,6 +172,17 @@ export default function LegerPanel({ students, subjects, grades, onEditStudent }
                 <option key={s} value={s}>Semester {s}</option>
               ))}
             </select>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedClass('Semua Kelas');
+                setSelectedSemester(semesters[0] || '1 (Ganjil)');
+              }}
+              className="px-4 py-2.5 bg-gray-100 text-gray-600 font-bold rounded-xl hover:bg-gray-200 transition-all active:scale-95 text-sm"
+              title="Reset Filter"
+            >
+              Reset
+            </button>
           </div>
         </div>
 
