@@ -43,8 +43,8 @@ export default function Layout({ children, activeTab, setActiveTab, onLogout, us
               <GraduationCap className="text-white" size={24} />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-gray-900 leading-tight">SMK Cokroaminoto</h1>
-              <p className="text-xs text-gray-500 font-medium tracking-wide uppercase">Salongo</p>
+              <h1 className="text-lg font-bold text-gray-900 leading-tight">SMK KONOHA</h1>
+              <p className="text-xs text-gray-500 font-medium tracking-wide uppercase">Konoha Village</p>
             </div>
           </div>
 
@@ -111,11 +111,15 @@ export default function Layout({ children, activeTab, setActiveTab, onLogout, us
               <p className="text-sm font-medium text-gray-700 truncate">{userEmail || 'Admin'}</p>
             </div>
             <button
-              onClick={onLogout}
+              onClick={() => {
+                if (window.confirm('Apakah Anda yakin ingin keluar dari aplikasi?')) {
+                  onLogout();
+                }
+              }}
               className="flex items-center w-full gap-3 px-4 py-3 text-sm font-medium text-red-600 transition-colors rounded-lg hover:bg-red-50"
             >
               <LogOut size={20} />
-              <span>Logout</span>
+              <span>Keluar Aplikasi</span>
             </button>
           </div>
         </div>
@@ -123,6 +127,30 @@ export default function Layout({ children, activeTab, setActiveTab, onLogout, us
 
       {/* Main Content */}
       <main className="flex-1 ml-64">
+        {/* Top Header */}
+        <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 px-8 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-gray-500 capitalize">{activeTab.replace('-', ' ')}</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex flex-col items-end">
+              <span className="text-sm font-bold text-gray-900">{userEmail || 'Admin'}</span>
+              <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Administrator</span>
+            </div>
+            <button
+              onClick={() => {
+                if (window.confirm('Apakah Anda yakin ingin keluar dari aplikasi?')) {
+                  onLogout();
+                }
+              }}
+              className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all active:scale-95"
+              title="Keluar Aplikasi"
+            >
+              <LogOut size={20} />
+            </button>
+          </div>
+        </header>
+
         <div className="p-8">
           {children}
         </div>
