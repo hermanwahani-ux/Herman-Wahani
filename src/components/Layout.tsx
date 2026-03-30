@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LogOut, User, BookOpen, GraduationCap, LayoutDashboard, FileText, Download, Upload, Book, Settings, ClipboardList } from 'lucide-react';
 import { cn } from '../lib/utils';
+import ConfirmDialog from './ConfirmDialog';
 
 interface SidebarItemProps {
   icon: React.ElementType;
@@ -33,6 +34,8 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, activeTab, setActiveTab, onLogout, userEmail }: LayoutProps) {
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
@@ -111,11 +114,7 @@ export default function Layout({ children, activeTab, setActiveTab, onLogout, us
               <p className="text-sm font-medium text-gray-700 truncate">{userEmail || 'Admin'}</p>
             </div>
             <button
-              onClick={() => {
-                if (window.confirm('Apakah Anda yakin ingin keluar dari aplikasi?')) {
-                  onLogout();
-                }
-              }}
+              onClick={() => setIsLogoutConfirmOpen(true)}
               className="flex items-center w-full gap-3 px-4 py-3 text-sm font-medium text-red-600 transition-colors rounded-lg hover:bg-red-50"
             >
               <LogOut size={20} />
@@ -138,11 +137,7 @@ export default function Layout({ children, activeTab, setActiveTab, onLogout, us
               <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Administrator</span>
             </div>
             <button
-              onClick={() => {
-                if (window.confirm('Apakah Anda yakin ingin keluar dari aplikasi?')) {
-                  onLogout();
-                }
-              }}
+              onClick={() => setIsLogoutConfirmOpen(true)}
               className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all active:scale-95"
               title="Keluar Aplikasi"
             >
@@ -155,6 +150,17 @@ export default function Layout({ children, activeTab, setActiveTab, onLogout, us
           {children}
         </div>
       </main>
+
+      <ConfirmDialog
+        isOpen={isLogoutConfirmOpen}
+        title="Keluar Aplikasi"
+        message="Apakah Anda yakin ingin keluar dari aplikasi? Sesi Anda akan berakhir."
+        confirmLabel="Keluar"
+        cancelLabel="Batal"
+        onConfirm={onLogout}
+        onCancel={() => setIsLogoutConfirmOpen(false)}
+        variant="danger"
+      />
     </div>
   );
 }
